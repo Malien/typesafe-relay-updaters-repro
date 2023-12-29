@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fb020b7c650fd400319d7599ff62500b>>
+ * @generated SignedSource<<5b3ba1851a3482741388dfe80bcd9fff>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,13 +17,13 @@ const node: any = {};
 export default node;
 
 module.exports.validate = function validate(value: {
-  readonly __typename: string;
   readonly __id: string;
+  readonly __isTodoList_assignable_todo?: string;
   readonly " $fragmentSpreads": TodoList_assignable_todo$fragmentType;
 }): false | {
-  readonly __typename: "Todo";
   readonly __id: string;
+  readonly __isTodoList_assignable_todo: string;
   readonly " $fragmentSpreads": TodoList_assignable_todo$fragmentType;
 } {
-  return value.__typename === 'Todo' ? value : false;
+  return value.__isTodoList_assignable_todo != null ? value : false;
 };

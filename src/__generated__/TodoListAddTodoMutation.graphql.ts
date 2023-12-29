@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<816456b360faee914d0e607346da0048>>
+ * @generated SignedSource<<fb730ed281c126f5da4c448d7bf9ecbd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,8 +15,8 @@ export type TodoListAddTodoMutation$variables = {
 };
 export type TodoListAddTodoMutation$data = {
   readonly createTodo: {
-    readonly __typename: "Todo";
     readonly __id: string;
+    readonly __isTodoList_assignable_todo?: "TodoItem";
     readonly " $fragmentSpreads": FragmentRefs<"TodoList_assignable_todo" | "Todo_todo">;
   };
 };
@@ -44,7 +44,21 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "__typename",
+  "name": "id",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "completed",
   "storageKey": null
 };
 return {
@@ -57,7 +71,7 @@ return {
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Todo",
+        "concreteType": "TodoItem",
         "kind": "LinkedField",
         "name": "createTodo",
         "plural": false,
@@ -72,7 +86,20 @@ return {
             "kind": "FragmentSpread",
             "name": "TodoList_assignable_todo"
           },
-          (v2/*: any*/),
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              {
+                "alias": "__isTodoList_assignable_todo",
+                "args": null,
+                "kind": "ScalarField",
+                "name": "__typename",
+                "storageKey": null
+              }
+            ],
+            "type": "Todo",
+            "abstractKey": "__isTodo"
+          },
           {
             "alias": null,
             "args": null,
@@ -96,45 +123,69 @@ return {
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Todo",
+        "concreteType": "TodoItem",
         "kind": "LinkedField",
         "name": "createTodo",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "title",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "completed",
-            "storageKey": null
-          },
-          (v2/*: any*/)
+            "kind": "InlineFragment",
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "__typename",
+                "storageKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  (v3/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "TodoItem",
+                    "kind": "LinkedField",
+                    "name": "todos",
+                    "plural": true,
+                    "selections": [
+                      (v2/*: any*/),
+                      (v3/*: any*/),
+                      (v4/*: any*/)
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "type": "TodoGroup",
+                "abstractKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  (v3/*: any*/),
+                  (v4/*: any*/)
+                ],
+                "type": "TodoItem",
+                "abstractKey": null
+              }
+            ],
+            "type": "Todo",
+            "abstractKey": "__isTodo"
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "ebd233a042a58d63ff41b4592024f038",
+    "cacheID": "0f7bdeabdd95f981b6004ee9e0e65eb5",
     "id": null,
     "metadata": {},
     "name": "TodoListAddTodoMutation",
     "operationKind": "mutation",
-    "text": "mutation TodoListAddTodoMutation(\n  $title: String!\n) {\n  createTodo(title: $title) {\n    ...Todo_todo\n    ...TodoList_assignable_todo\n    id\n  }\n}\n\nfragment TodoList_assignable_todo on Todo {\n  __typename\n}\n\nfragment Todo_todo on Todo {\n  id\n  title\n  completed\n}\n"
+    "text": "mutation TodoListAddTodoMutation(\n  $title: String!\n) {\n  createTodo(title: $title) {\n    ...Todo_todo\n    ...TodoList_assignable_todo\n    id\n  }\n}\n\nfragment TodoList_assignable_todo on Todo {\n  __isTodo: __typename\n  __typename\n}\n\nfragment Todo_group on TodoGroup {\n  title\n  todos {\n    id\n    ...Todo_item\n  }\n}\n\nfragment Todo_item on TodoItem {\n  id\n  title\n  completed\n}\n\nfragment Todo_todo on Todo {\n  __isTodo: __typename\n  __typename\n  ...Todo_group\n  ...Todo_item\n}\n"
   }
 };
 })();

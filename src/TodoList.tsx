@@ -1,7 +1,6 @@
 import { commitMutation, graphql, useLazyLoadQuery } from "react-relay";
 import { TodoListQuery } from "./__generated__/TodoListQuery.graphql";
 import Todo from "./Todo";
-import { useState } from "react";
 import { Environment } from "relay-runtime";
 import { TodoListAddTodoMutation } from "./__generated__/TodoListAddTodoMutation.graphql";
 import { TodoListUpdateQuery } from "./__generated__/TodoListUpdateQuery.graphql";
@@ -19,7 +18,9 @@ export default function TodoList() {
     graphql`
       query TodoListQuery {
         todos {
-          id
+          ... on Node {
+            id
+          }
           ...Todo_todo
           ...TodoList_assignable_todo
         }

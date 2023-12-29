@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9b98d561a3aa0c4d978ea0f94b0449e7>>
+ * @generated SignedSource<<ba8ae93ac671b26a77b07e6559d2e955>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,8 +14,8 @@ export type TodoListUpdateQuery$variables = Record<PropertyKey, never>;
 export type TodoListUpdateQuery$data = {
   get todos(): ReadonlyArray<Record<PropertyKey, never>>;
   set todos(value: ReadonlyArray<{
-    readonly __typename: "Todo";
     readonly __id: string;
+    readonly __isTodoList_assignable_todo: string;
     readonly " $fragmentSpreads": FragmentRefs<"TodoList_assignable_todo">;
   }>);
 };
@@ -34,7 +34,7 @@ const node: ConcreteUpdatableQuery = {
       {
         "alias": null,
         "args": null,
-        "concreteType": "Todo",
+        "concreteType": null,
         "kind": "LinkedField",
         "name": "todos",
         "plural": true,

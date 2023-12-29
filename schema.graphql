@@ -1,0 +1,17 @@
+type Query {
+    todos: [Todo!]!
+}
+
+interface Node {
+    id: ID!
+}
+
+type Todo implements Node {
+    id: ID!
+    title: String!
+    completed: Boolean!
+}
+
+type Mutation {
+  createTodo(title: String!): Todo!
+}

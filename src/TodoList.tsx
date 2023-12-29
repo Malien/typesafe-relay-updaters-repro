@@ -2,7 +2,10 @@ import { commitMutation, graphql, useLazyLoadQuery } from "react-relay";
 import { TodoListQuery } from "./__generated__/TodoListQuery.graphql";
 import Todo from "./Todo";
 import { Environment } from "relay-runtime";
-import { TodoListAddTodoMutation } from "./__generated__/TodoListAddTodoMutation.graphql";
+import {
+  TodoListAddTodoMutation,
+  TodoListAddTodoMutation$data,
+} from "./__generated__/TodoListAddTodoMutation.graphql";
 import { TodoListUpdateQuery } from "./__generated__/TodoListUpdateQuery.graphql";
 
 declare const environment: Environment;
@@ -11,7 +14,7 @@ graphql`
   fragment TodoList_assignable_todo on Todo @assignable {
     __typename
   }
-`
+`;
 
 export default function TodoList() {
   const { todos } = useLazyLoadQuery<TodoListQuery>(
@@ -44,19 +47,23 @@ export default function TodoList() {
       `,
       variables: { title },
       updater(store, response) {
-        const newTodo = response?.createTodo
-        if (!newTodo) return
+        const newTodo = response?.createTodo;
+        if (!newTodo) return;
 
-        const { updatableData } = store.readUpdatableQuery<TodoListUpdateQuery>(graphql`
-          query TodoListUpdateQuery @updatable {
-            todos {
-              ...TodoList_assignable_todo
+        const { updatableData } = store.readUpdatableQuery<TodoListUpdateQuery>(
+          graphql`
+            query TodoListUpdateQuery @updatable {
+              todos {
+                ...TodoList_assignable_todo
+              }
             }
-          }
-        `, {})
+          `,
+          {},
+        );
 
-        updatableData.todos = [...todos, newTodo]
-      }
+        if (!isAssignable(newTodo)) return;
+        updatableData.todos = [...todos, newTodo];
+      },
     });
   }
 
@@ -70,4 +77,11 @@ export default function TodoList() {
       ))}
     </div>
   );
+}
+
+function isAssignable(todo: {
+  __id: string;
+  __isTodoList_assignable_todo?: string;
+}): todo is { __id: string; __isTodoList_assignable_todo: string } {
+  return !!todo.__isTodoList_assignable_todo;
 }

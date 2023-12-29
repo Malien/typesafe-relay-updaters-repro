@@ -6,12 +6,20 @@ interface Node {
     id: ID!
 }
 
-type Todo implements Node {
+union Todo = TodoItem | TodoGroup
+
+type TodoItem implements Node {
     id: ID!
     title: String!
     completed: Boolean!
 }
 
+type TodoGroup implements Node {
+    id: ID!
+    title: String!
+    todos: [TodoItem!]!
+}
+
 type Mutation {
-  createTodo(title: String!): Todo!
+  createTodo(title: String!): TodoItem!
 }

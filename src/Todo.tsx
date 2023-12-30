@@ -38,7 +38,7 @@ function TodoItem({ todo }: { todo: Todo_item$key }) {
 
   return (
     <label>
-      <input type="checkbox" name={id} checked={completed} />
+      <input type="checkbox" name={id} checked={completed} onChange={() => {}} />
       {title}
     </label>
   );

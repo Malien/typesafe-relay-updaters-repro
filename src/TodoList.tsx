@@ -55,6 +55,7 @@ export default function TodoList() {
           `,
           {},
         );
+        console.log(newTodo)
 
         if (!isAssignable(newTodo)) return;
         updatableData.todos = [...todos, newTodo];
@@ -63,9 +64,9 @@ export default function TodoList() {
   }
 
   return (
-    <div>
+    <div style={{ display: "grid" }}>
       <form onSubmit={handleSubmit}>
-        <input name="todo" required />
+        <input name="todo" required placeholder="New todo"/>
       </form>
       {todos.map(todo => (
         <Todo key={todo.id} todo={todo} />

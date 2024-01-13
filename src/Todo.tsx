@@ -59,8 +59,8 @@ function TodoGroup({ group }: { group: Todo_group$key }) {
   );
 
   return (
-    <div>
-      <h1>{title}</h1>
+    <div style={{ display: "grid", paddingLeft: 20 }}>
+      <h2 style={{ margin: 0, marginLeft: -20, fontSize: 18 }}>{title}</h2>
       {todos.map(todo => (
         <TodoItem key={todo.id} todo={todo} />
       ))}
